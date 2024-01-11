@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=3 uid="uid://lgmxvc4jcn1a"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/cyst.gd" id="1_nlp7o"]
+[ext_resource type="Texture2D" uid="uid://ckd8xvck13g4n" path="res://Assets/Sprites/Cysts.png" id="1_sh25s"]
+[ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/cyst_anim.gd" id="3_q75vp"]
+[ext_resource type="PackedScene" uid="uid://dod2stumle857" path="res://Assets/Scenes/Buildings/Infestation/infestation.tscn" id="4_5mglh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyyck"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4jaj"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcb2o"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkkw6"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uex8v"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e3atp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyyck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4jaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcb2o")
+}],
+"loop": true,
+"name": &"cyst_medium",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkkw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uex8v")
+}],
+"loop": true,
+"name": &"cyst_small",
+"speed": 2.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dr4tf"]
+radius = 6.0
+
+[node name="Cyst" type="Node2D"]
+script = ExtResource("1_nlp7o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_e3atp")
+animation = &"cyst_medium"
+script = ExtResource("3_q75vp")
+
+[node name="Infestation" parent="." instance=ExtResource("4_5mglh")]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_dr4tf")
+
+[node name="ResourceGainTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="DamageTickTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ResourceGainTimer" to="." method="_on_resource_gain_timer_timeout"]
+[connection signal="timeout" from="DamageTickTimer" to="." method="_on_damage_tick_timer_timeout"]

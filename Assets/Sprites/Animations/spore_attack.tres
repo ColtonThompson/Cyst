@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://y16f74p57k5y"]
+
+[ext_resource type="Texture2D" uid="uid://disjqsetmjf3a" path="res://Assets/Sprites/spore_attack.png" id="1_05vtc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tf5l"]
+atlas = ExtResource("1_05vtc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh54h"]
+atlas = ExtResource("1_05vtc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffg2s"]
+atlas = ExtResource("1_05vtc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulpgt"]
+atlas = ExtResource("1_05vtc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkr3w"]
+atlas = ExtResource("1_05vtc")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwcdi"]
+atlas = ExtResource("1_05vtc")
+region = Rect2(160, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tf5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh54h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffg2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulpgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkr3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwcdi")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}]

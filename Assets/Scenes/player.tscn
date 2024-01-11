@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj0kabm8cu2kl"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Characters/player.gd" id="1_gnmh3"]
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+floor_stop_on_slope = false
+floor_block_on_wall = false
+script = ExtResource("1_gnmh3")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000

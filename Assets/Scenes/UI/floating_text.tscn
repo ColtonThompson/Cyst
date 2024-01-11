@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://ci6s0mth6dglq"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/UI/floating_text.gd" id="1_tq5pg"]
+
+[sub_resource type="Animation" id="Animation_kwf0b"]
+resource_name = "Rise and Fade"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"remove"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ContainerNode/Label:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -5.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ContainerNode/Label:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tw0vb"]
+_data = {
+"Rise and Fade": SubResource("Animation_kwf0b")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_qsd2g"]
+font_size = 12
+font_color = Color(0, 1, 0, 1)
+shadow_color = Color(0, 0, 0, 0.396078)
+shadow_offset = Vector2(2, 2)
+
+[node name="FloatingText" type="Node2D"]
+script = ExtResource("1_tq5pg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tw0vb")
+}
+
+[node name="ContainerNode" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="ContainerNode"]
+modulate = Color(1, 1, 1, 0)
+z_index = 50
+offset_top = -5.0
+offset_right = 21.0
+offset_bottom = 15.0
+text = "123"
+label_settings = SubResource("LabelSettings_qsd2g")
+horizontal_alignment = 1
+vertical_alignment = 1

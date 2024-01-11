@@ -1,0 +1,16 @@
+Building Connections BrainStorm
+====================================
+Cyst game
+controls:
+ - Player can WASD to move the camera around the map
+ - Player can hit B to toggle building mode (Think starcraft for UI/UX)
+ - Player can then hit a variety of hotkeys for other buildings
+ 
+loop:
+ - Place cysts to spread infestation (like creep in starcraft)
+ - Resources are required to place down cysts or other buildings
+ - Player gets attacked by random waves of mobs trying to purge the infestation, 
+   progressively getting stronger (New enemies get introduced at certain time intervals)
+ - Resources are gathered by corpses on the ground that are covered by infestation
+ - Game ends when all buildings are destroyed, time survived is score
+ 

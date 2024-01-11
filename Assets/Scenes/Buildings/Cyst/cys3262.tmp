@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=3 uid="uid://lgmxvc4jcn1a"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/cyst.gd" id="1_nlp7o"]
+[ext_resource type="Texture2D" uid="uid://ckd8xvck13g4n" path="res://Assets/Sprites/Cysts.png" id="1_sh25s"]
+[ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/cyst_anim.gd" id="3_q75vp"]
+[ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/Infestation.gd" id="4_m4oae"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/Buildings/CystResourceGain.gd" id="5_iffoq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyyck"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4jaj"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcb2o"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkkw6"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uex8v"]
+atlas = ExtResource("1_sh25s")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e3atp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyyck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4jaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcb2o")
+}],
+"loop": true,
+"name": &"cyst_medium",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkkw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uex8v")
+}],
+"loop": true,
+"name": &"cyst_small",
+"speed": 2.0
+}]
+
+[sub_resource type="SystemFont" id="SystemFont_e4iub"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nu4te"]
+font = SubResource("SystemFont_e4iub")
+font_color = Color(0, 0.713726, 0, 1)
+shadow_color = Color(0.270588, 0.270588, 0.270588, 0)
+shadow_offset = Vector2(2, 2)
+
+[node name="Cyst" type="Node2D"]
+script = ExtResource("1_nlp7o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_e3atp")
+animation = &"cyst_medium"
+script = ExtResource("3_q75vp")
+
+[node name="Infestation" type="Node2D" parent="."]
+script = ExtResource("4_m4oae")
+
+[node name="ResourceGainTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="ResourceGain" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 2.0
+offset_top = -29.0
+offset_right = 57.0
+offset_bottom = -3.0
+grow_horizontal = 0
+scale = Vector2(0.989951, 1.03147)
+size_flags_horizontal = 4
+text = "DEBUG"
+label_settings = SubResource("LabelSettings_nu4te")
+vertical_alignment = 1
+script = ExtResource("5_iffoq")
+
+[connection signal="passive_resource_gained" from="." to="ResourceGain" method="_on_cyst_passive_resource_gained"]
+[connection signal="timeout" from="ResourceGainTimer" to="." method="_on_resource_gain_timer_timeout"]

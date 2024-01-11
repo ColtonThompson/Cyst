@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://fd85c0asjf08"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/Buildings/Hive/hive.gd" id="1_owhtr"]
+[ext_resource type="SpriteFrames" uid="uid://c6ht4rqjbwmow" path="res://Assets/Sprites/Animations/hive_anim.tres" id="1_rm1ue"]
+[ext_resource type="Script" path="res://Assets/Scenes/Buildings/Hive/hive_anim.gd" id="3_68l67"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pob6s"]
+size = Vector2(68, 46)
+
+[node name="Hive" type="Node2D"]
+script = ExtResource("1_owhtr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_rm1ue")
+animation = &"hive_idle"
+script = ExtResource("3_68l67")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_pob6s")

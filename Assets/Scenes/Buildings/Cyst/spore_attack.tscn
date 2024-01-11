@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfbh0oqf4t3ee"]
+
+[ext_resource type="SpriteFrames" uid="uid://y16f74p57k5y" path="res://Assets/Sprites/Animations/spore_attack.tres" id="1_0rfbe"]
+[ext_resource type="Script" path="res://Assets/Scripts/Misc/spore_attack.gd" id="2_8yjvw"]
+
+[node name="SporeAttack" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.847059)
+top_level = true
+z_index = 10
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("1_0rfbe")
+animation = &"attack"
+script = ExtResource("2_8yjvw")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

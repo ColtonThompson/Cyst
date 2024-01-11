@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://c6ht4rqjbwmow"]
+
+[ext_resource type="Texture2D" uid="uid://bgryjdbaysrce" path="res://Assets/Sprites/hive.png" id="1_2ieq0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aipvp"]
+atlas = ExtResource("1_2ieq0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7s6dw"]
+atlas = ExtResource("1_2ieq0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3c6p"]
+atlas = ExtResource("1_2ieq0")
+region = Rect2(128, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aipvp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7s6dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3c6p")
+}],
+"loop": true,
+"name": &"hive_idle",
+"speed": 5.0
+}]

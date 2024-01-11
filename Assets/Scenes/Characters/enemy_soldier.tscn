@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://camf47mnwjei0"]
+
+[ext_resource type="SpriteFrames" uid="uid://c7bx2mw6sja7o" path="res://Assets/Sprites/Animations/Characters/soldier1.tres" id="1_2t13r"]
+[ext_resource type="Script" path="res://Assets/Scripts/Characters/enemy_soldier.gd" id="1_sth3m"]
+[ext_resource type="Script" path="res://Assets/Scripts/Characters/enemy_soldier_anim.gd" id="3_6iopa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8wg6"]
+size = Vector2(6.5, 8)
+
+[node name="EnemySoldier" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_sth3m")
+
+[node name="ShootingPosition" type="Node2D" parent="."]
+position = Vector2(4, 5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("1_2t13r")
+animation = &"attack"
+script = ExtResource("3_6iopa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_j8wg6")
+
+[node name="AttackDelayTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="DebugTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="AttackDelayTimer" to="." method="_on_attack_delay_timer_timeout"]
+[connection signal="timeout" from="DebugTimer" to="." method="_on_debug_timer_timeout"]
