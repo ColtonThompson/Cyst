@@ -6,15 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://dod2stumle857" path="res://Assets/Scenes/Buildings/Infestation/infestation.tscn" id="4_a118s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pob6s"]
-size = Vector2(68, 46)
+size = Vector2(30, 20)
 
 [node name="Hive" type="Node2D"]
 z_index = 1
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_owhtr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
-scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("1_rm1ue")
 animation = &"hive_idle"
 script = ExtResource("3_68l67")

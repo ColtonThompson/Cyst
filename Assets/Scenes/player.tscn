@@ -14,3 +14,4 @@ limit_left = -10000
 limit_top = -10000
 limit_right = 10000
 limit_bottom = 10000
+editor_draw_limits = true

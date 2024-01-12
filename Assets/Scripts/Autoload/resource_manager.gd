@@ -1,23 +1,23 @@
 extends Node
 
 # Resources
-var biomass = 300
-var biomass_starting_value = 300
+var biomass = 400
+var biomass_starting_value = 400
 # This variable is to create a counting effect for when you gain/spend resources (like starcraft)
 var biomass_spent = 0
 # How much biomass you generate for each cyst every 3 seconds
 var biomass_passive_gain = 5
-var biomass_passive_gain_starting_value = 5
+var biomass_passive_gain_starting_value = 8
 # Dict to store all the building resource costs
 var building_costs := { "CYST": 100 }
 
 func spend_resource(amount):
 	biomass -= amount
-	biomass_spent = amount
 	
 func gain_resource(amount):
+	if biomass >= 10000:
+		return
 	biomass += amount
-	biomass_spent -= amount
 
 # Gets the cost of a building!
 func get_building_cost(building_name) -> int:

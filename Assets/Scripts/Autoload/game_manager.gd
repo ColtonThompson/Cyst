@@ -1,20 +1,19 @@
 extends Node
 
 var time_elapsed: float = 0.0
-var buildings = {}
 
 # Basic building variables 
-var building_mode = false
 var last_building_placed = 0
 var selected_building = "NONE"
 var infestation_radius = 50
+var infestation_build_radius = 65
+
+# Difficulty settings
+var num_enemies_to_spawn = 1
+var max_enemies = 5
+var kills = 0
 
 var game_over = false
 
 func get_time_elapsed() -> float:
 	return time_elapsed
-
-func add_building(building_name, position):
-	if !buildings.has(position):
-		buildings[position] = building_name
-		

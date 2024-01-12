@@ -5,12 +5,16 @@ extends CharacterBody2D
 @onready var attack_delay_timer = $AttackDelayTimer
 @onready var shooting_node = $ShootingPosition
 
-var move_speed = 5
+# Object pool for floating text
+var floating_text_pool: Array[FloatingText] = []
+@onready var floating_text_template = preload("res://Assets/Scenes/UI/floating_text.tscn")
+
+var move_speed = 7
 var current_health = 45
-var max_health = 45
+var max_health = 50
 var attack_speed = 1
 var attack_damage = 5
-var attack_range = 45
+var attack_range = 40
 
 var target_node: Node2D
 var is_in_combat = false
@@ -22,6 +26,28 @@ var behaviour_state = "IDLE"
 
 func _ready():
 	add_to_group("enemies")
+	
+func set_difficulty(speed: int, health:int, damage:int, range:int):
+	move_speed = speed
+	max_health = health
+	current_health = health
+	attack_damage = damage
+	attack_range = range
+	
+# Creates floating text with value at start_pos
+func create_floating_text(value, start_pos):
+	var floating_text = get_floating_text()
+	add_child(floating_text, true)
+	floating_text.set_values_and_animate(value, start_pos, 15, 5, Color.GOLD)
+
+# Gets a new floating text object or pulls one from a pool
+func get_floating_text() -> FloatingText:
+	if floating_text_pool.size() > 0:
+		return floating_text_pool.pop_front()
+	else:
+		var new_floating_text = floating_text_template.instantiate()
+		new_floating_text.tree_exiting.connect(func():floating_text_pool.append(new_floating_text))
+		return new_floating_text
 
 func _on_attack_delay_timer_timeout():
 	# allow the soldier to fire again
@@ -76,7 +102,6 @@ func handle_behaviour():
 # Called every frame
 func _process(delta):
 	pass
-	#queue_redraw()
 
 # Called on a static delay for physics calculations/movement
 func _physics_process(delta):
@@ -180,6 +205,9 @@ func die():
 	if behaviour_state == "DEAD":
 		queue_free()
 		return
+	ResourceManager.biomass += 15
+	GameManager.kills += 1
+	create_floating_text("+15", Vector2.ZERO)
 	is_dead = true
 	behaviour_state = "DEAD"
 	anim.play("dead")

@@ -53,10 +53,10 @@ animations = [{
 "speed": 2.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dr4tf"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_y5dyg"]
 radius = 6.0
 
-[node name="Cyst" type="Node2D"]
+[node name="Cyst" type="CharacterBody2D"]
 script = ExtResource("1_nlp7o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -67,17 +67,16 @@ script = ExtResource("3_q75vp")
 
 [node name="Infestation" parent="." instance=ExtResource("4_5mglh")]
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_dr4tf")
-
 [node name="ResourceGainTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.8
 autostart = true
 
 [node name="DamageTickTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_y5dyg")
+disabled = true
 
 [connection signal="timeout" from="ResourceGainTimer" to="." method="_on_resource_gain_timer_timeout"]
 [connection signal="timeout" from="DamageTickTimer" to="." method="_on_damage_tick_timer_timeout"]

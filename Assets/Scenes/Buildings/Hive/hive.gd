@@ -1,10 +1,10 @@
 extends Node2D
 
-@onready var infestation_template = preload("res://Assets/Scenes/Buildings/Infestation/Infestation.tscn")
-
 var current_health = 1000
 var max_health = 1000
 var is_dead = false
+
+signal hive_has_died
 
 func deal_damage(amount):
 	current_health -= amount
@@ -12,6 +12,7 @@ func deal_damage(amount):
 		die()
 		
 func die():
+	hive_has_died.emit()
 	is_dead = true
 
 func _ready():

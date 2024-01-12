@@ -12,8 +12,9 @@ extends Node2D
 func _ready() -> void:
 	pass # Replace with function body.
 
-func set_values_and_animate(value: String, start_pos:Vector2, height:float, spread:float) -> void:
+func set_values_and_animate(value: String, start_pos:Vector2, height:float, spread:float, color: Color) -> void:
 	label.text = value
+	label.modulate = color
 	label.scale = Vector2(0.5, 0.5)
 	animplayer.play("Rise and Fade")
 	
@@ -21,6 +22,7 @@ func set_values_and_animate(value: String, start_pos:Vector2, height:float, spre
 	var end_pos = Vector2(randf_range(-spread,spread),-height) + start_pos
 	var tween_length = animplayer.get_animation("Rise and Fade").length
 	tween.tween_property(container_node,"position",end_pos,tween_length).from(start_pos)
+	
 	
 func remove() -> void:
 	animplayer.stop()
