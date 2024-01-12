@@ -16,3 +16,8 @@ res://Assets/Scenes/Buildings/Cyst/cyst.gd
 res://Assets/Scripts/Autoload/resource_manager.gd
 res://Assets/Scenes/UI/floating_text.tscn
 res://Assets/Scenes/player.tscn
+res://Assets/Scripts/UI/Hint.gd
+res://Assets/Scenes/Buildings/Infestation/infestation.tscn
+res://Assets/Scripts/UI/HiveProgressBar.gd
+res://Assets/Scripts/UI/HiveHealthLabel.gd
+res://Assets/Scenes/Buildings/Cyst/HealthBar.gd

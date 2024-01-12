@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://lgmxvc4jcn1a"]
+[gd_scene load_steps=14 format=3 uid="uid://lgmxvc4jcn1a"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/cyst.gd" id="1_nlp7o"]
 [ext_resource type="Texture2D" uid="uid://ckd8xvck13g4n" path="res://Assets/Sprites/Cysts.png" id="1_sh25s"]
 [ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/cyst_anim.gd" id="3_q75vp"]
 [ext_resource type="PackedScene" uid="uid://dod2stumle857" path="res://Assets/Scenes/Buildings/Infestation/infestation.tscn" id="4_5mglh"]
+[ext_resource type="Texture2D" uid="uid://ucnmp7kgdada" path="res://Assets/Sprites/UI/basic_health_bar.png" id="5_5ag6i"]
+[ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/HealthBar.gd" id="6_4whrc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yyyck"]
 atlas = ExtResource("1_sh25s")
@@ -78,5 +80,28 @@ autostart = true
 shape = SubResource("CircleShape2D_y5dyg")
 disabled = true
 
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+z_index = 10
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -12.0
+offset_right = 95.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+texture_under = ExtResource("5_5ag6i")
+texture_progress = ExtResource("5_5ag6i")
+tint_under = Color(1, 0, 0, 1)
+tint_progress = Color(0, 1, 0, 1)
+script = ExtResource("6_4whrc")
+
+[connection signal="health_changed" from="." to="HealthBar" method="_on_cyst_health_changed"]
 [connection signal="timeout" from="ResourceGainTimer" to="." method="_on_resource_gain_timer_timeout"]
 [connection signal="timeout" from="DamageTickTimer" to="." method="_on_damage_tick_timer_timeout"]

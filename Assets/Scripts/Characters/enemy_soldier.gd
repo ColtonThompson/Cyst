@@ -38,7 +38,7 @@ func set_difficulty(speed: int, health:int, damage:int, range:int):
 func create_floating_text(value, start_pos):
 	var floating_text = get_floating_text()
 	add_child(floating_text, true)
-	floating_text.set_values_and_animate(value, start_pos, 15, 5, Color.GOLD)
+	floating_text.set_values_and_animate(value, start_pos, 15, 5, Color.PURPLE)
 
 # Gets a new floating text object or pulls one from a pool
 func get_floating_text() -> FloatingText:
@@ -106,6 +106,11 @@ func _process(delta):
 # Called on a static delay for physics calculations/movement
 func _physics_process(delta):
 	handle_behaviour()
+	
+func sprite_flash() -> void:
+	var tween: Tween = create_tween()
+	#tween.tween_property(anim, "modulate:v", 1, 0.25).from(15)
+	tween.tween_property(anim, "modulate:v", 1, 0.25).from(5)
 	
 func update_animation():
 	var target_position = target_node.position
@@ -197,6 +202,7 @@ func reset_behaviour():
 	target_node = null
 	
 func deal_damage(amount):
+	sprite_flash()
 	current_health -= amount
 	if current_health < 0:
 		die()

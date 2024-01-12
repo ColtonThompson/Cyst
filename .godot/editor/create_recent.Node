@@ -1,7 +1,11 @@
+CanvasLayer
+CanvasGroup
+TextureProgressBar
+ProgressBar
 Label
+Control
 CollisionShape2D
 CharacterBody2D
-Control
 TextureButton
 Timer
 ColorRect
@@ -11,7 +15,6 @@ Area2D
 RigidBody2D
 Node2D
 Sprite2D
-CanvasLayer
 AnimationPlayer
 Camera2D
 TileMap

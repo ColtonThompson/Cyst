@@ -51,9 +51,7 @@ _data = {
 
 [sub_resource type="LabelSettings" id="LabelSettings_qsd2g"]
 font_size = 12
-font_color = Color(0, 1, 0, 1)
-shadow_color = Color(0, 0, 0, 0.396078)
-shadow_offset = Vector2(2, 2)
+shadow_color = Color(0, 0, 0, 0.580392)
 
 [node name="FloatingText" type="Node2D"]
 script = ExtResource("1_tq5pg")
@@ -66,11 +64,9 @@ libraries = {
 [node name="ContainerNode" type="Node2D" parent="."]
 
 [node name="Label" type="Label" parent="ContainerNode"]
-modulate = Color(1, 1, 1, 0)
 z_index = 50
-offset_top = -5.0
 offset_right = 21.0
-offset_bottom = 15.0
+offset_bottom = 20.0
 text = "123"
 label_settings = SubResource("LabelSettings_qsd2g")
 horizontal_alignment = 1

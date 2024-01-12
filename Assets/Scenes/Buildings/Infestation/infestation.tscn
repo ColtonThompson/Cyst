@@ -6,7 +6,7 @@
 script = ExtResource("1_gwtw2")
 
 [node name="GrowthTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.075
 autostart = true
 
 [connection signal="timeout" from="GrowthTimer" to="." method="_on_growth_timer_timeout"]

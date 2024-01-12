@@ -1,5 +1,9 @@
-D:/Game Development/Game Jams/New Year New Skills/Cyst/Publish
+res://Assets/Scenes/UI
+res://Assets/Scenes/Buildings/Cyst
 res://Assets/Sprites/UI
+res://Assets/Scripts/UI
+res://Assets/Scenes/Buildings/Infestation
+D:/Game Development/Game Jams/New Year New Skills/Cyst/Publish
 res://Assets/Scripts/Misc
 res://Assets/Sprites/Animations
 res://Assets/Sprites
@@ -10,13 +14,9 @@ res://Assets/Sprites/Projectiles
 res://Assets/Scripts/Characters
 res://Assets/Scenes/Characters
 res://Assets/Sprites/Animations/Characters
-res://Assets/Scenes/Buildings/Infestation
 res://Assets/Scenes/Buildings/Hive
 res://Assets/Scripts/Autoload
-res://Assets/Scenes/UI
-res://Assets/Scripts/UI
 res://Assets/Scenes
 res://Assets/Sprites/Tilesets
-res://Assets/Scenes/Buildings/Cyst
 res://Assets/Scenes/buildings
 res://Assets/Scripts

@@ -1,9 +1,11 @@
 extends Node2D
 
 signal needs_to_die
+signal health_changed
 
 @onready var spore_attack = preload("res://Assets/Scenes/Buildings/Cyst/spore_attack.tscn")
 
+var spore_attack_damage = 2
 var current_health = 100
 var max_health = 100
 var is_dead = false
@@ -19,7 +21,7 @@ var floating_text_pool: Array[FloatingText] = []
 func create_floating_text(value, start_pos):
 	var floating_text = get_floating_text()
 	add_child(floating_text, true)
-	floating_text.set_values_and_animate(value, start_pos, 15, 5, Color.GREEN)
+	floating_text.set_values_and_animate(value, start_pos, 15, 5, Color.PURPLE)
 
 # Gets a new floating text object or pulls one from a pool
 func get_floating_text() -> FloatingText:
@@ -58,6 +60,7 @@ func _process(delta):
 		
 func deal_damage(amount):
 	current_health -= amount
+	health_changed.emit()
 	if current_health < 0:
 		die()
 		
@@ -79,7 +82,7 @@ func attack_with_spores(node:Node2D):
 	spore.position = node.global_position + offset
 	add_child(spore)
 	# Hit the enemy!
-	node.deal_damage(3)
+	node.deal_damage(spore_attack_damage)
 
 func _on_damage_tick_timer_timeout():
 	var enemies = get_tree().get_nodes_in_group("enemies")
