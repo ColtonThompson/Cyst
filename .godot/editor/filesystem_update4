@@ -1,6 +1,7 @@
 res://Assets/Scenes/Buildings/Cyst/cyst.tscn
 res://Assets/Sprites/Animations/spore_attack.tres
 res://Assets/Scenes/UI/floating_text.gd
+res://Assets/Scripts/UI/HiveProgressBar.gd
 res://Assets/Scripts/GameWorldController.gd
 res://Assets/Sprites/Animations/Characters/soldier1.tres
 res://Assets/Sprites/Tilesets/primary.tres
@@ -9,15 +10,4 @@ res://Assets/Scenes/game_world.tscn
 res://Assets/Scenes/Characters/enemy_soldier.tscn
 res://Assets/Scenes/Buildings/Cyst/spore_attack.tscn
 res://Assets/Scenes/Buildings/Hive/hive.tscn
-res://Assets/Scripts/Autoload/game_manager.gd
-res://Assets/Scripts/Characters/enemy_soldier.gd
-res://Assets/Scenes/Buildings/Hive/hive.gd
-res://Assets/Scenes/Buildings/Cyst/cyst.gd
-res://Assets/Scripts/Autoload/resource_manager.gd
-res://Assets/Scenes/UI/floating_text.tscn
-res://Assets/Scenes/player.tscn
-res://Assets/Scripts/UI/Hint.gd
-res://Assets/Scenes/Buildings/Infestation/infestation.tscn
-res://Assets/Scripts/UI/HiveProgressBar.gd
-res://Assets/Scripts/UI/HiveHealthLabel.gd
-res://Assets/Scenes/Buildings/Cyst/HealthBar.gd
+res://Assets/Scenes/menu.tscn

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://4ym0hsgu4q1w"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Projectiles/bullet.gd" id="1_kmk5e"]
+[ext_resource type="Texture2D" uid="uid://b45t80i87rn3s" path="res://Assets/Sprites/Projectiles/bullet-tracer.png" id="1_n0g5c"]
+
+[node name="Bullet" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_kmk5e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 69
+scale = Vector2(3, 3)
+texture = ExtResource("1_n0g5c")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.601
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

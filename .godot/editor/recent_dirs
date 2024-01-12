@@ -1,3 +1,7 @@
+res://Assets/Sprites/Tilesets
+res://Assets/Scenes/UI/menu
+res://Assets/Art
+res://Assets/Scenes
 res://Assets/Scenes/UI
 res://Assets/Scenes/Buildings/Cyst
 res://Assets/Sprites/UI
@@ -16,7 +20,3 @@ res://Assets/Scenes/Characters
 res://Assets/Sprites/Animations/Characters
 res://Assets/Scenes/Buildings/Hive
 res://Assets/Scripts/Autoload
-res://Assets/Scenes
-res://Assets/Sprites/Tilesets
-res://Assets/Scenes/buildings
-res://Assets/Scripts
