@@ -7,7 +7,7 @@ signal health_changed
 @onready var spore_attack = preload("res://Assets/Scenes/Buildings/Cyst/spore_attack.tscn")
 @onready var floating_text_template = preload("res://Assets/Scenes/UI/floating_text.tscn")
 
-var spore_attack_damage = 2
+var spore_attack_damage = 3
 var current_health = 125
 var max_health = 125
 var is_dead = false
