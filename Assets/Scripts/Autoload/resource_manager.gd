@@ -9,7 +9,7 @@ var biomass_spent = 0
 var biomass_passive_gain = 5
 var biomass_passive_gain_starting_value = 8
 # Dict to store all the building resource costs
-var building_costs := { "CYST": 100 }
+var building_costs := { "CYST": 75 }
 
 func spend_resource(amount):
 	biomass -= amount

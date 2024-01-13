@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjsgstygehoct"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/UI/error_message.gd" id="1_mb4xt"]
+
+[sub_resource type="Animation" id="Animation_8rfeh"]
+resource_name = "display and fade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"remove"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2cjvd"]
+_data = {
+"display and fade": SubResource("Animation_8rfeh")
+}
+
+[sub_resource type="SystemFont" id="SystemFont_lwdyg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c7dyv"]
+font = SubResource("SystemFont_lwdyg")
+font_size = 24
+font_color = Color(1, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.756863)
+shadow_offset = Vector2(2, 2)
+
+[node name="ErrorMessage" type="Node2D"]
+script = ExtResource("1_mb4xt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2cjvd")
+}
+
+[node name="Container" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -578.0
+offset_top = -151.0
+offset_right = 957.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+size_flags_horizontal = 4
+text = "Testing the error message system!"
+label_settings = SubResource("LabelSettings_c7dyv")
+horizontal_alignment = 1
+vertical_alignment = 1

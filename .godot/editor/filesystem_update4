@@ -16,3 +16,9 @@ res://Assets/Scripts/Autoload/game_manager.gd
 res://Assets/Scenes/Buildings/Hive/hive.gd
 res://Assets/Scripts/Autoload/resource_manager.gd
 res://Assets/Scenes/player.tscn
+res://Assets/Scenes/UI/error_message.tscn
+res://Assets/Scenes/UI/error_message.gd
+res://Assets/Scripts/Characters/enemy_soldier.gd
+res://Assets/Scenes/menu.tscn
+res://Assets/Scenes/UI/menu/menu.gd
+res://Assets/Scenes/Misc/BackgroundMusic.gd

@@ -211,9 +211,9 @@ func die():
 	if behaviour_state == "DEAD":
 		queue_free()
 		return
-	ResourceManager.biomass += 15
+	ResourceManager.biomass += 7
 	GameManager.kills += 1
-	create_floating_text("+15", Vector2.ZERO)
+	create_floating_text("+7", Vector2.ZERO)
 	is_dead = true
 	behaviour_state = "DEAD"
 	anim.play("dead")

@@ -82,7 +82,6 @@ shadow_offset = Vector2(2, 2)
 shadow_color = Color(0, 0, 0, 0.709804)
 
 [node name="GameWorld" type="Node2D"]
-process_mode = 1
 script = ExtResource("1_yhc0f")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -212,11 +211,9 @@ script = ExtResource("6_a0k03")
 [node name="GameOverControl" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
@@ -227,15 +224,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -183.0
-offset_top = -122.0
-offset_right = 184.0
-offset_bottom = -31.0
+offset_left = 372.5
+offset_top = 258.5
+offset_right = 739.5
+offset_bottom = 349.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 text = "GAME OVER"
 label_settings = SubResource("LabelSettings_khtku")
+metadata/_edit_use_anchors_ = true
 
 [node name="GameOverInstructions" type="Label" parent="UI/GameOverControl"]
 layout_mode = 1
@@ -244,10 +242,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -126.0
-offset_top = -41.0
-offset_right = 126.0
-offset_bottom = -15.0
+offset_left = 443.0
+offset_top = 336.0
+offset_right = 695.0
+offset_bottom = 362.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Press \"Space\" to start a new run!"
@@ -305,7 +303,7 @@ offset_top = -75.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.75, 0.75)
-tooltip_text = "Cysts cost 75 biomass."
+tooltip_text = "Cysts cost 100 biomass."
 texture_normal = ExtResource("8_0sudf")
 texture_pressed = ExtResource("9_clqe5")
 texture_hover = ExtResource("10_6rxuj")
@@ -374,22 +372,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ResumeButton" type="Button" parent="UI/PauseControl"]
-z_index = 10
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -73.5
-offset_right = 60.0
-offset_bottom = -42.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Resume Game"
-
 [node name="PauseLabel" type="Label" parent="UI/PauseControl"]
 z_index = 1
 layout_mode = 1
@@ -398,10 +380,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -112.0
-offset_top = -149.0
-offset_right = 112.0
-offset_bottom = -104.0
+offset_left = -56.0
+offset_top = -11.5
+offset_right = 56.0
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "GAME PAUSED"
@@ -431,12 +413,11 @@ text = "Disable Music"
 label_settings = SubResource("LabelSettings_sboiu")
 
 [node name="BackgroundColor" type="ColorRect" parent="UI/PauseControl"]
-z_index = -1
 layout_mode = 0
 offset_top = -3.0
 offset_right = 1152.0
 offset_bottom = 645.0
-color = Color(0, 0, 0, 0.243137)
+color = Color(0, 0, 0, 0.360784)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 10.0
@@ -447,5 +428,4 @@ autostart = true
 [connection signal="health_changed" from="Hive" to="UI/HiveHealthControl/HiveProgressBar" method="_on_hive_health_changed"]
 [connection signal="hive_has_died" from="Hive" to="." method="_on_hive_hive_has_died"]
 [connection signal="pressed" from="UI/HUDControl/ButtonControl/BuildCystButton" to="." method="_on_build_cyst_button_pressed"]
-[connection signal="pressed" from="UI/PauseControl/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

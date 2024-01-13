@@ -1,3 +1,4 @@
+res://Assets/Scenes/UI
 D:/Game Development/Game Jams/New Year New Skills/Cyst/Publish/MACOS
 D:/Game Development/Game Jams/New Year New Skills/Cyst/Publish
 res://Assets/Scenes/Misc
@@ -5,7 +6,6 @@ res://Assets/Sprites/Tilesets
 res://Assets/Scenes/UI/menu
 res://Assets/Art
 res://Assets/Scenes
-res://Assets/Scenes/UI
 res://Assets/Scenes/Buildings/Cyst
 res://Assets/Sprites/UI
 res://Assets/Scripts/UI
@@ -20,4 +20,3 @@ res://Assets/Sprites/Projectiles
 res://Assets/Scripts/Characters
 res://Assets/Scenes/Characters
 res://Assets/Sprites/Animations/Characters
-res://Assets/Scenes/Buildings/Hive

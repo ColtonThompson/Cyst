@@ -3,7 +3,9 @@ extends Node2D
 signal needs_to_die
 signal health_changed
 
+@onready var infestation = $Infestation
 @onready var spore_attack = preload("res://Assets/Scenes/Buildings/Cyst/spore_attack.tscn")
+@onready var floating_text_template = preload("res://Assets/Scenes/UI/floating_text.tscn")
 
 var spore_attack_damage = 2
 var current_health = 125
@@ -12,11 +14,9 @@ var is_dead = false
 var damage_range = 60
 var resource_gain_cycles_remaining = 3
 
-@onready var infestation = $Infestation
-
 # Object pool for floating text
 var floating_text_pool: Array[FloatingText] = []
-@onready var floating_text_template = preload("res://Assets/Scenes/UI/floating_text.tscn")
+
 # Creates floating text with value at start_pos
 func create_floating_text(value, start_pos):
 	var floating_text = get_floating_text()
