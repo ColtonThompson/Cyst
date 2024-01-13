@@ -9,8 +9,8 @@ extends CharacterBody2D
 var floating_text_pool: Array[FloatingText] = []
 @onready var floating_text_template = preload("res://Assets/Scenes/UI/floating_text.tscn")
 
-var move_speed = 7
-var current_health = 45
+var move_speed = 8
+var current_health = 50
 var max_health = 50
 var attack_speed = 1
 var attack_damage = 5

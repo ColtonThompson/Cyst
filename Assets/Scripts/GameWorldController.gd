@@ -1,12 +1,13 @@
 extends Node2D
 
 @onready var info_label = $UI/InfoControl/InfoLabel
-
+@onready var hive = $Hive
 # Enemy instance
 var enemy_soldier = preload("res://Assets/Scenes/Characters/enemy_soldier.tscn")
 
 # Buildings that can be placed, we preload them to instantiate them later
 var building_cyst = preload("res://Assets/Scenes/Buildings/Cyst/cyst.tscn")
+
 # reference to the hive so we can set a game over condition
 @onready var hive_building = $Hive
 @onready var game_over_control = $UI/GameOverControl
@@ -25,16 +26,40 @@ signal info_signal
 # This number will increase each time the EnemySpawnTimer reaches a timeout(), we will use this to increase difficulty!
 var spawn_cycles = 0
 
+func debug_cysts():
+	print("====================================")
+	for cyst in get_tree().get_nodes_in_group("cysts"):
+		var mouse_pos = get_global_mouse_position()
+		var loc_position = cyst.position
+		var glo_position = cyst.global_position
+		var tr = cyst.transform
+		var loc_dist_to_mouse = cyst.position.distance_to(mouse_pos)
+		var glo_dist_to_mouse = cyst.global_position.distance_to(mouse_pos)
+		print("--------------")
+		print("CYST local_position = " + str(loc_position))
+		print("CYST global_position = " + str(glo_position))
+		print("CYST transform = " + str(tr))
+		print("CYST local distance to mouse = " + str(loc_dist_to_mouse))
+		print("CYST global distance to mouse = " + str(glo_dist_to_mouse))
+		print("--------------")
+
 func _ready():
 	reset_game()
+	#var num = randi_range(1,3)
+	#for i in range(num):
+	#	var cyst_instance = building_cyst.instantiate()
+	#	var offset = Vector2(randi_range(-100,100), randi_range(-25,25))
+	#	hive.add_child(cyst_instance, true)
+	#	cyst_instance.position = get_global_mouse_position() + offset
 
 func _input(event):
 	var mouse_pos = get_global_mouse_position()
 	
+	if Input.is_action_just_pressed("debug"):
+		debug_cysts()
 	# Building mode toggle
 	if Input.is_action_just_pressed("toggle_building_mode"):
 		is_building = true
-		print("Building mode = " + str(is_building))
 
 	if Input.is_action_just_pressed("restart_game"):
 		if GameManager.game_over:
@@ -56,7 +81,6 @@ func create_building(building_name, mouse_position):
 	if time_passed < 500:
 		return
 	if !can_place_building(building_name, mouse_position):
-		print("Unable to place!")
 		return
 	var resource_cost = ResourceManager.get_building_cost(building_name)
 	# Set the timer for delay
@@ -65,14 +89,13 @@ func create_building(building_name, mouse_position):
 		"CYST":
 			ResourceManager.spend_resource(resource_cost)
 			var cyst_instance = building_cyst.instantiate()
-			add_child(cyst_instance)
-			cyst_instance.position = mouse_position
+			hive.add_child(cyst_instance, true)
+			cyst_instance.set_position(get_global_mouse_position())
 		_:
 			print("Unexpected building trying to be placed!")
 			
 # Determines if the player can place the building
 # Checks resource cost and if the position is good
-# TODO: Check collision with other buildings to prevent stacking	
 func can_place_building(building_name, mouse_position):
 	var resource_cost = ResourceManager.get_building_cost(building_name)
 	# Check to make sure the player has enough resources to place the building
@@ -82,18 +105,18 @@ func can_place_building(building_name, mouse_position):
 	# Check logic for each building type incase of special rules
 	match building_name:
 		"CYST":
-			var distances: Array = []
-			for cyst in get_tree().get_nodes_in_group("cysts"):
-				var local_cyst: Vector2 = to_local(cyst.position)
-				var local_me: Vector2 = to_local(mouse_position)
-				var distance = local_me.distance_to(local_cyst)
-				var inverse = get_transform().affine_inverse()
-				distances.append(distance)
-			for i in range(distances.size()):
-				var dist = distances[i]
-				if dist >= 20 and dist <= GameManager.infestation_build_radius:
-					return true
-	return false
+			for cyst in hive.get_tree().get_nodes_in_group("cysts"):
+				if cyst == null:
+					continue
+				var distance = cyst.global_position.distance_to(get_global_mouse_position())
+				if distance < 20:
+					return false
+					
+			var closest_cyst = get_nearest_cyst(get_global_mouse_position())
+			var dist_to_closest = closest_cyst.global_position.distance_to(get_global_mouse_position())
+			if dist_to_closest > GameManager.infestation_build_radius:
+				return false
+			return true
 	
 func get_nearest_cyst(position: Vector2):
 	var closest_distance = 1000
@@ -105,7 +128,7 @@ func get_nearest_cyst(position: Vector2):
 			closest_distance = distance
 			closest_cyst = cyst
 	return closest_cyst
-
+	
 # Sets the text for info_label and emits a signal for it to be shown
 func display_error(text):
 	info_label.text = text
@@ -144,8 +167,10 @@ func _on_enemy_spawn_timer_timeout():
 	var num_enemies = get_tree().get_nodes_in_group("enemies").size()
 	if num_enemies >= GameManager.max_enemies:
 		return
-	var move_speed = 7
-	var health = 50
+	print("Spawning enemies!")
+	$EnemySpawnTimer.set_wait_time(3.0)	
+	var move_speed = 8
+	var health = 55
 	var damage = 5
 	var range = 40
 	if spawn_cycles % 5 == 0:
@@ -153,6 +178,8 @@ func _on_enemy_spawn_timer_timeout():
 		GameManager.max_enemies += 5
 		GameManager.num_enemies_to_spawn += randi_range(3, 15)
 	elif spawn_cycles % 10 == 0:
+		if range < 60:
+			range += 1
 		health += 15
 		damage += 1
 		GameManager.max_enemies += 15
@@ -161,7 +188,7 @@ func _on_enemy_spawn_timer_timeout():
 		GameManager.max_enemies += 30
 		GameManager.num_enemies_to_spawn += randi_range(15, 40)		
 	elif spawn_cycles % 100 == 0:
-		if safe_range < 1000:
+		if safe_range < 750:
 			safe_range += 100
 		move_speed = 10
 		GameManager.max_enemies += 75
@@ -178,7 +205,6 @@ func _on_enemy_spawn_timer_timeout():
 		spawn_cycles += 1
 
 func _on_build_cyst_button_pressed():
-	print("Build Cyst button pressed! Can build = " + str(is_building))
 	if is_building:
 		is_building = false
 	else:

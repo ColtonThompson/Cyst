@@ -10,4 +10,9 @@ res://Assets/Scenes/game_world.tscn
 res://Assets/Scenes/Characters/enemy_soldier.tscn
 res://Assets/Scenes/Buildings/Cyst/spore_attack.tscn
 res://Assets/Scenes/Buildings/Hive/hive.tscn
-res://Assets/Scenes/menu.tscn
+res://Assets/Scenes/UI/floating_text.tscn
+res://Assets/Scenes/Buildings/Cyst/cyst.gd
+res://Assets/Scripts/Autoload/game_manager.gd
+res://Assets/Scenes/Buildings/Hive/hive.gd
+res://Assets/Scripts/Autoload/resource_manager.gd
+res://Assets/Scenes/player.tscn

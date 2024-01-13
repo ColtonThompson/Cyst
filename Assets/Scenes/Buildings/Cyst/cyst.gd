@@ -6,8 +6,8 @@ signal health_changed
 @onready var spore_attack = preload("res://Assets/Scenes/Buildings/Cyst/spore_attack.tscn")
 
 var spore_attack_damage = 2
-var current_health = 100
-var max_health = 100
+var current_health = 125
+var max_health = 125
 var is_dead = false
 var damage_range = 60
 var resource_gain_cycles_remaining = 3
@@ -32,9 +32,6 @@ func get_floating_text() -> FloatingText:
 		new_floating_text.tree_exiting.connect(func():floating_text_pool.append(new_floating_text))
 		return new_floating_text
 
-func _ready():
-	add_to_group("cysts")
-	
 func _draw_old():
 	for cyst in get_tree().get_nodes_in_group("cysts"):
 		var local_cyst: Vector2 = to_local(cyst.position)

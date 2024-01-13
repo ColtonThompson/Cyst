@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8wg6"]
 size = Vector2(5.25, 8)
 
-[node name="EnemySoldier" type="CharacterBody2D"]
+[node name="EnemySoldier" type="CharacterBody2D" groups=["enemies"]]
 z_index = 2
 collision_layer = 2
 collision_mask = 2

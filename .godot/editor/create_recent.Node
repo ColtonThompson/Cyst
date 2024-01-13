@@ -1,3 +1,6 @@
+CharacterBody2D
+Node2D
+AudioStreamPlayer
 TileMap
 Node
 TextureRect
@@ -9,16 +12,3 @@ CanvasLayer
 CanvasGroup
 TextureProgressBar
 ProgressBar
-Label
-CollisionShape2D
-CharacterBody2D
-TextureButton
-Timer
-ColorRect
-AnimatedSprite2D
-Area2D
-RigidBody2D
-Node2D
-AnimationPlayer
-MeshInstance2D
-Container

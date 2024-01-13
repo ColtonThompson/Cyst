@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b06qq1w82ffai"]
+[gd_scene load_steps=8 format=3 uid="uid://b06qq1w82ffai"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/UI/menu/menu.gd" id="1_otriu"]
 [ext_resource type="PackedScene" uid="uid://fd85c0asjf08" path="res://Assets/Scenes/Buildings/Hive/hive.tscn" id="3_8eajn"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://f0n7sokipqas" path="res://Assets/Art/logo.png" id="4_apax4"]
 [ext_resource type="PackedScene" uid="uid://camf47mnwjei0" path="res://Assets/Scenes/Characters/enemy_soldier.tscn" id="5_w8573"]
 [ext_resource type="TileSet" uid="uid://ditimyoq1jc5m" path="res://Assets/Sprites/Tilesets/primary.tres" id="6_sly85"]
+[ext_resource type="PackedScene" uid="uid://c23641v25pgfd" path="res://Assets/Scenes/Misc/background_music.tscn" id="7_7wmiu"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_otriu")
@@ -160,6 +161,8 @@ layer_1/tile_data = PackedInt32Array(-65539, 65536, 0, -3, 65536, 0, -4, 65536, 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2(3, 3)
+
+[node name="BackgroundMusic" parent="." instance=ExtResource("7_7wmiu")]
 
 [connection signal="pressed" from="UILayer/ButtonControl/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="UILayer/ButtonControl/Quit" to="." method="_on_quit_pressed"]

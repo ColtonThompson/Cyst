@@ -17,8 +17,15 @@ func die():
 	hive_has_died.emit()
 	is_dead = true
 
+func _enter_tree():
+	pass
+
+func _init():
+	pass
+
 func _ready():
-	add_to_group("cysts")
+	add_to_group("cysts", true)
+	GameManager.add_cyst_to_network($".")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

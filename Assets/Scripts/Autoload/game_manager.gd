@@ -13,6 +13,15 @@ var num_enemies_to_spawn = 1
 var max_enemies = 5
 var kills = 0
 
+# Cyst network
+var cyst_network: Array = []
+
+func add_cyst_to_network(node):
+	cyst_network.append(node)
+	
+func get_cysts_in_network() -> Array:
+	return cyst_network
+
 var game_over = false
 
 func get_time_elapsed() -> float:

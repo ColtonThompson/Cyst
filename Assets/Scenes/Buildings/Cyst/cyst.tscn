@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://lgmxvc4jcn1a"]
+[gd_scene load_steps=13 format=3 uid="uid://lgmxvc4jcn1a"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Buildings/Cyst/cyst.gd" id="1_nlp7o"]
 [ext_resource type="Texture2D" uid="uid://ckd8xvck13g4n" path="res://Assets/Sprites/Cysts.png" id="1_sh25s"]
@@ -55,10 +55,7 @@ animations = [{
 "speed": 2.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_y5dyg"]
-radius = 6.0
-
-[node name="Cyst" type="CharacterBody2D"]
+[node name="Cyst" type="CharacterBody2D" groups=["cysts"]]
 script = ExtResource("1_nlp7o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -75,10 +72,6 @@ autostart = true
 
 [node name="DamageTickTimer" type="Timer" parent="."]
 autostart = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_y5dyg")
-disabled = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 z_index = 10

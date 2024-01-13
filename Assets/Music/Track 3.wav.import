@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ndiuroiwe6tn"
+path="res://.godot/imported/Track 3.wav-9da1c1c5f2f68a161cd53b01b2bea82d.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Track 3.wav"
+dest_files=["res://.godot/imported/Track 3.wav-9da1c1c5f2f68a161cd53b01b2bea82d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

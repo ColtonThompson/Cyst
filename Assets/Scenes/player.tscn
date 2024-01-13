@@ -10,8 +10,8 @@ script = ExtResource("1_gnmh3")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
-limit_left = -10000
-limit_top = -10000
-limit_right = 10000
-limit_bottom = 10000
+limit_left = -750
+limit_top = -750
+limit_right = 750
+limit_bottom = 750
 editor_draw_limits = true
