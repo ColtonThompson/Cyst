@@ -160,6 +160,7 @@ var stored_health = 35
 var stored_move_speed = 10
 
 # Event variables
+var you_are_beyond = false
 var you_should_be_dead = false
 var event_spawn_count = 5
 
@@ -230,7 +231,7 @@ func _on_enemy_spawn_timer_timeout():
 		move_speed = 20
 		health = 85
 		damage = 12
-		start_challenge_event(25, damage, range, health, move_speed)
+		start_challenge_event(30, damage, range, health, move_speed)
 	# Time has hit 12 minute and 0 seconds on the clock
 	if minutes == "12" and seconds == "00":
 		move_speed = 25
@@ -249,13 +250,23 @@ func _on_enemy_spawn_timer_timeout():
 		damage = 30
 		range = 59
 		start_challenge_event(50, damage, range, health, move_speed)
+	if minutes == "24" and seconds == "00":
+		move_speed = 31
+		health = 300
+		damage = 35
+		you_are_beyond = true	
+	
 		
 	# Challenge the player with an event!
 	if you_should_be_dead:
 		health = health * 3
-		damage = damage * 1.75
-		move_speed = 30
-	
+		damage = damage * 2.15
+		move_speed = move_speed * 2.1
+		
+	if you_are_beyond:
+		health += 1
+		damage += 1
+			
 	for i in range(num_to_spawn):
 		if num_enemies >= 400:
 			return
