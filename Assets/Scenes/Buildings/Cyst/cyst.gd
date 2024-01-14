@@ -65,19 +65,12 @@ func die():
 	is_dead = true
 	needs_to_die.emit()
 
-func _on_resource_gain_timer_timeout():
-	if resource_gain_cycles_remaining > 0:
-		var biomass_gain = ResourceManager.biomass_passive_gain
-		# Gain resources passively when the timer reaches 0
-		ResourceManager.gain_resource(biomass_gain)	
-		create_floating_text("+" + str(biomass_gain), Vector2i(0,0))
-		resource_gain_cycles_remaining -= 1
-
 func attack_with_spores(node:Node2D):
 	var offset = Vector2(randi_range(-5,5), randi_range(-5,5))
 	var spore: AnimatedSprite2D = spore_attack.instantiate()
 	spore.position = node.global_position + offset
 	add_child(spore)
+	
 	# Hit the enemy!
 	node.deal_damage(spore_attack_damage)
 

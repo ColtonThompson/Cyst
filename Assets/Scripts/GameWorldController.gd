@@ -17,9 +17,8 @@ var building_cyst = preload("res://Assets/Scenes/Buildings/Cyst/cyst.tscn")
 @onready var game_over_control = $UI/GameOverControl
 @onready var build_cyst_button = $UI/HUDControl/ButtonControl/BuildCystButton
 
+# Building settings
 var is_building = false
-
-var last_placed_positions: Array = []
 
 # This is the popup message when you can't do something and need context for it
 var error_message: String = ""
@@ -45,6 +44,9 @@ func _input(event):
 	# Building mode toggle
 	if Input.is_action_just_pressed("toggle_building_mode"):
 		is_building = true
+		
+	if Input.is_action_just_pressed("debug"):
+		spawn_enemy_soldier(mouse_pos, 15, 100, 1, 40)
 
 	if Input.is_action_just_pressed("restart_game"):
 		if GameManager.game_over:
@@ -88,6 +90,8 @@ func create_building(building_name, mouse_position):
 # Determines if the player can place the building
 # Checks resource cost and if the position is good
 func can_place_building(building_name, mouse_position):
+	if GameManager.game_over:
+		return false
 	var resource_cost = ResourceManager.get_building_cost(building_name)
 	# Check to make sure the player has enough resources to place the building
 	if ResourceManager.biomass < resource_cost || resource_cost == -1:
@@ -141,60 +145,97 @@ func arrange_in_circle(n: int, r: float, center=Vector2.ZERO, start_offset=0.0) 
 		output.push_front(pos + center)
 	return output
 
-var safe_range: int = 250 # define this as the minimum distance from the player
+var safe_range: int = 200 # define this as the minimum distance from the player
 
 func _get_random_spawn_position() -> Vector2:
 	var camera = $Player
-	var spawn_pos: = Vector2(safe_range, 0).rotated(randf_range(-(2*PI), 2*PI))
-	var distance = camera.position.distance_to(spawn_pos)
-	if distance < safe_range: # if we are too close
-		spawn_pos = _get_random_spawn_position() # just get a new one instead
+	var screen_rect = get_viewport().get_visible_rect().size
+	var spawn_pos: = Vector2(screen_rect.x, 0).rotated(randf_range(0, 2*PI))
 	return spawn_pos
 	
+var you_should_be_dead = false
 # Controls the difficulty as time increases
 func _on_enemy_spawn_timer_timeout():
-	var num_enemies = get_tree().get_nodes_in_group("enemies").size()
-	if num_enemies >= GameManager.max_enemies:
+	if GameManager.game_over:
 		return
-	$EnemySpawnTimer.set_wait_time(3.0)	
-	var move_speed = 8
-	var health = 55
-	var damage = 5
-	var range = 40
-	if spawn_cycles % 2 == 0:
-		damage += 1
-		if GameManager.max_enemies < 400:
-			GameManager.max_enemies += 5
-		GameManager.num_enemies_to_spawn += randi_range(3, 8)
-	elif spawn_cycles % 3 == 0:
-		if range < 60:
-			range += 1
-		health += 15
-		damage += 1
-		if GameManager.max_enemies < 400:
-			GameManager.max_enemies += 15
-		GameManager.num_enemies_to_spawn += randi_range(8, 16)	
-	elif spawn_cycles % 4 == 0:
-		if GameManager.max_enemies < 400:
-			GameManager.max_enemies += 30
-		GameManager.num_enemies_to_spawn += randi_range(16, 32)		
-	elif spawn_cycles % 10 == 0:
-		if safe_range < 750:
-			safe_range += 100
-		move_speed = 10
-		if GameManager.max_enemies < 400:
-			GameManager.max_enemies += 75
-		GameManager.num_enemies_to_spawn += randi_range(32, 64)	
-		
-	for i in range(GameManager.num_enemies_to_spawn):
-		var position: Vector2 = _get_random_spawn_position()
-		var offset: Vector2 = Vector2(randi_range(-5,10), randi_range(-5,10))
-		var soldier = enemy_soldier.instantiate()
-		add_child(soldier, true)
-		
-		soldier.set_difficulty(move_speed, health, damage, range)
-		soldier.position = position + offset
-		spawn_cycles += 1
+	var time = get_time_elapsed(GameManager.time_elapsed)
+	var minutes = time[0]
+	var seconds = time[1]
+	var num_enemies = get_tree().get_nodes_in_group("enemies").size()
+	
+	# Enemy difficulty variables
+	var damage = 4
+	var range = 45
+	var health = 35
+	var move_speed = 10
+	
+	# Spawn related setting
+	var num_to_spawn = 1
+
+	#print("Time elapsed " + str(minutes) + " mins and " + str(seconds) + " seconds, cycles = " + str(spawn_cycles))
+	# Time has hit 1 minute and 0 seconds on the clock
+	if minutes == "00" and seconds == "45":
+		move_speed = 11
+		num_to_spawn += 2
+	# Time has hit 2 minute and 0 seconds on the clock
+	if minutes == "02" and seconds == "00":
+		move_speed = 12	
+		health = 40
+		damage = 5
+		num_to_spawn += 5
+	# Time has hit 4 minute and 0 seconds on the clock
+	if minutes == "04" and seconds == "00":
+		move_speed = 14	
+		health = 55
+		damage = 7
+	# Time has hit 7 minute and 0 seconds on the clock
+	if minutes == "07" and seconds == "00":
+		move_speed = 15	
+		health = 70
+		damage = 9
+	# Time has hit 10 minute and 0 seconds on the clock
+	if minutes == "10" and seconds == "00":
+		move_speed = 16
+		health = 85
+		damage = 12
+	# Time has hit 12 minute and 0 seconds on the clock
+	if minutes == "12" and seconds == "00":
+		move_speed = 17
+		health = 100
+		damage = 15
+	# Time has hit 15 minute and 0 seconds on the clock
+	if minutes == "15" and seconds == "00":
+		move_speed = 18
+		health = 150
+		damage = 18
+	# Time has hit 20 minute and 0 seconds on the clock
+	if minutes == "20" and seconds == "00":
+		you_should_be_dead = true
+		move_speed = 20
+		health = 200
+		damage = 30
+		range = 59
+	if you_should_be_dead:
+		health = 300
+		damage += 5
+	
+	for i in range(num_to_spawn):
+		if num_enemies >= 400:
+			return
+		var spawn_pos: Vector2 = _get_random_spawn_position()
+		var offset: Vector2 = Vector2(randi_range(-15,15), randi_range(-15, 15))
+		spawn_pos = spawn_pos + offset
+		spawn_enemy_soldier(spawn_pos, move_speed, health, damage, range)
+		print("Spawning basic enemy soldier at " + str(spawn_pos))
+	spawn_cycles += 1
+
+# Spawns a basic enemy soldier
+func spawn_enemy_soldier(spawn_position: Vector2, move_spd, hp, dmg, attack_range):
+	var soldier = enemy_soldier.instantiate()
+	var offset = Vector2(randi_range(-10,10), randi_range(-10,10))
+	add_child(soldier)
+	soldier.set_difficulty(move_spd, hp, dmg, attack_range)
+	soldier.position = spawn_position
 
 func _on_build_cyst_button_pressed():
 	if is_building:
@@ -209,3 +250,11 @@ func _on_hive_hive_has_died():
 func _on_resume_button_pressed():
 	get_tree().paused = false
 	pause_control.set_visible(false)
+	
+func get_time_elapsed(time: float) -> Array:
+	var minutes := time / 60
+	var seconds := fmod(time, 60)
+	var format_mins := "%02d" % [minutes]
+	var format_secs := "%02d" % [seconds]
+	var time_result: Array = [format_mins, format_secs]
+	return time_result

@@ -4,7 +4,6 @@
 
 [sub_resource type="Animation" id="Animation_8rfeh"]
 resource_name = "display and fade"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,7 +11,7 @@ tracks/0/path = NodePath("Container:modulate:a")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
+"times": PackedFloat32Array(0, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
@@ -24,7 +23,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -43,7 +42,7 @@ _data = {
 font = SubResource("SystemFont_lwdyg")
 font_size = 24
 font_color = Color(1, 0, 0, 1)
-shadow_color = Color(0, 0, 0, 0.756863)
+shadow_color = Color(0, 0, 0, 0.258824)
 shadow_offset = Vector2(2, 2)
 
 [node name="ErrorMessage" type="Node2D"]
@@ -55,6 +54,7 @@ libraries = {
 }
 
 [node name="Container" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

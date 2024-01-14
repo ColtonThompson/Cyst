@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://camf47mnwjei0"]
+[gd_scene load_steps=5 format=3 uid="uid://camf47mnwjei0"]
 
 [ext_resource type="SpriteFrames" uid="uid://c7bx2mw6sja7o" path="res://Assets/Sprites/Animations/Characters/soldier1.tres" id="1_2t13r"]
 [ext_resource type="Script" path="res://Assets/Scripts/Characters/enemy_soldier.gd" id="1_sth3m"]
 [ext_resource type="Script" path="res://Assets/Scripts/Characters/enemy_soldier_anim.gd" id="3_6iopa"]
-[ext_resource type="PackedScene" uid="uid://bfbh0oqf4t3ee" path="res://Assets/Scenes/Buildings/Cyst/spore_attack.tscn" id="4_2ban1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8wg6"]
 size = Vector2(5.25, 8)
@@ -36,9 +35,6 @@ one_shot = true
 [node name="DebugTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
-
-[node name="SporeAttack" parent="." instance=ExtResource("4_2ban1")]
-visible = false
 
 [connection signal="timeout" from="AttackDelayTimer" to="." method="_on_attack_delay_timer_timeout"]
 [connection signal="timeout" from="DebugTimer" to="." method="_on_debug_timer_timeout"]

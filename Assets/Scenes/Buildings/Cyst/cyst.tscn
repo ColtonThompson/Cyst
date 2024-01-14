@@ -66,10 +66,6 @@ script = ExtResource("3_q75vp")
 
 [node name="Infestation" parent="." instance=ExtResource("4_5mglh")]
 
-[node name="ResourceGainTimer" type="Timer" parent="."]
-wait_time = 1.8
-autostart = true
-
 [node name="DamageTickTimer" type="Timer" parent="."]
 autostart = true
 
@@ -96,5 +92,4 @@ tint_progress = Color(0, 1, 0, 1)
 script = ExtResource("6_4whrc")
 
 [connection signal="health_changed" from="." to="HealthBar" method="_on_cyst_health_changed"]
-[connection signal="timeout" from="ResourceGainTimer" to="." method="_on_resource_gain_timer_timeout"]
 [connection signal="timeout" from="DamageTickTimer" to="." method="_on_damage_tick_timer_timeout"]

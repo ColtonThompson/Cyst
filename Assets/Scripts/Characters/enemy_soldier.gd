@@ -5,16 +5,23 @@ extends CharacterBody2D
 @onready var attack_delay_timer = $AttackDelayTimer
 @onready var shooting_node = $ShootingPosition
 
+# Spore attack animation
+@onready var spores = $SporeAttack
+
 # Object pool for floating text
 var floating_text_pool: Array[FloatingText] = []
 @onready var floating_text_template = preload("res://Assets/Scenes/UI/floating_text.tscn")
 
-var move_speed = 8
-var current_health = 50
-var max_health = 50
-var attack_speed = 1
-var attack_damage = 5
-var attack_range = 40
+# Difficulty variables
+@export var move_speed = 12
+
+# Attack speed in seconds (delay)
+@export var attack_speed = 1
+@export var attack_damage = 5
+@export var attack_range = 30
+
+@export var max_health = 50
+var current_health = max_health
 
 var target_node: Node2D
 var is_in_combat = false
@@ -25,6 +32,8 @@ var is_dead = false
 var behaviour_state = "IDLE"
 
 func _ready():
+	# Set attack delay to the variable value
+	attack_delay_timer.set_wait_time(attack_speed)
 	add_to_group("enemies")
 	
 func set_difficulty(speed: int, health:int, damage:int, range:int):
@@ -91,6 +100,9 @@ func handle_behaviour():
 		if target_node == null:
 			reset_behaviour()
 			return
+		var potential_new_target = find_nearest_target()
+		if potential_new_target != target_node:
+			target_node = potential_new_target
 		if !is_within_attack_distance(target_node.position, attack_range):
 			update_animation()
 			move_towards_target(get_process_delta_time())
@@ -110,7 +122,8 @@ func _physics_process(delta):
 func sprite_flash() -> void:
 	var tween: Tween = create_tween()
 	#tween.tween_property(anim, "modulate:v", 1, 0.25).from(15)
-	tween.tween_property(anim, "modulate:v", 1, 0.25).from(5)
+	if tween != null:
+		tween.tween_property(anim, "modulate:v", 1, 0.25).from(5)
 	
 func update_animation():
 	var target_position = target_node.position
@@ -130,22 +143,12 @@ func update_animation():
 	elif !is_dead:
 		anim.play("idle")
 		
-# Debugging to show target / attack range logic
-func _draw_old():
-	if target_node == null:
-		return
-	var distance = position.distance_to(target_node.position)
-	if distance > attack_range:
-		draw_line(to_local(position), to_local(target_node.position), Color.RED, 0.25, true)
-	else:
-		draw_line(to_local(position), to_local(target_node.position), Color.GREEN, 0.25, true)
-
 func set_target(target: Node2D):
 	target_node = target
 
 # Looks for the closest target to attack
 func find_nearest_target() -> Node2D:
-	var lowest_val = 1000
+	var lowest_val = 10000
 	var target_node: Node2D
 	var cysts = get_tree().get_nodes_in_group("cysts")
 	for cyst in cysts:
@@ -200,8 +203,16 @@ func reset_behaviour():
 	behaviour_state = "IDLE"
 	is_in_combat = false
 	target_node = null
-	
+
+func show_spore_attack():
+	if !spores.visible:		
+		var range = 5
+		var spore_pos = Vector2(randi_range(-range,range), randi_range(-range,range))
+		spores.visible = true
+		spores.reload_and_play(spore_pos)
+		
 func deal_damage(amount):
+	show_spore_attack()
 	sprite_flash()
 	current_health -= amount
 	if current_health < 0:
@@ -211,9 +222,9 @@ func die():
 	if behaviour_state == "DEAD":
 		queue_free()
 		return
-	ResourceManager.biomass += 7
+	ResourceManager.biomass += 12
 	GameManager.kills += 1
-	create_floating_text("+7", Vector2.ZERO)
+	create_floating_text("+12", Vector2.ZERO)
 	is_dead = true
 	behaviour_state = "DEAD"
 	anim.play("dead")

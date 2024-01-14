@@ -13,6 +13,7 @@ animation = &"attack"
 script = ExtResource("2_8yjvw")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 autostart = true
 

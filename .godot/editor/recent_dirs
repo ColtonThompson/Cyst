@@ -1,5 +1,8 @@
-D:/Game Development/Game Jams/New Year New Skills/Cyst/Publish/MACOS
+res://Assets/Scripts/UI
 res://Assets/Scenes/UI
+res://Assets/Scripts/Characters
+D:/Game Development/Game Jams/New Year New Skills/Cyst/Publish/WINDOWS
+D:/Game Development/Game Jams/New Year New Skills/Cyst/Publish/MACOS
 D:/Game Development/Game Jams/New Year New Skills/Cyst/Publish
 res://Assets/Scenes/Misc
 res://Assets/Sprites/Tilesets
@@ -8,7 +11,6 @@ res://Assets/Art
 res://Assets/Scenes
 res://Assets/Scenes/Buildings/Cyst
 res://Assets/Sprites/UI
-res://Assets/Scripts/UI
 res://Assets/Scenes/Buildings/Infestation
 res://Assets/Scripts/Misc
 res://Assets/Sprites/Animations
@@ -17,6 +19,4 @@ res://Assets/Sprites/Characters/Humans/soldier_1_outline
 res://Assets/Scripts/Projectiles
 res://Assets/Scenes/Projectiles
 res://Assets/Sprites/Projectiles
-res://Assets/Scripts/Characters
 res://Assets/Scenes/Characters
-res://Assets/Sprites/Animations/Characters

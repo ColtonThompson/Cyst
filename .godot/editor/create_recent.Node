@@ -1,3 +1,6 @@
+Camera2D
+CharacterBody2D
+Node2D
 Button
 ColorRect
 TextureRect
@@ -5,11 +8,7 @@ Label
 CheckBox
 Control
 CanvasLayer
-Node2D
 AnimationPlayer
-CharacterBody2D
 AudioStreamPlayer
 TileMap
 Node
-Sprite2D
-Camera2D

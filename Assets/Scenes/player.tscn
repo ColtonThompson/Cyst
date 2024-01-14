@@ -2,16 +2,11 @@
 
 [ext_resource type="Script" path="res://Assets/Scripts/Characters/player.gd" id="1_gnmh3"]
 
-[node name="Player" type="CharacterBody2D"]
-motion_mode = 1
-floor_stop_on_slope = false
-floor_block_on_wall = false
-script = ExtResource("1_gnmh3")
-
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Player" type="Camera2D"]
 zoom = Vector2(3, 3)
-limit_left = -750
-limit_top = -750
-limit_right = 750
-limit_bottom = 750
-editor_draw_limits = true
+limit_left = -1000
+limit_top = -1000
+limit_right = 1000
+limit_bottom = 1000
+limit_smoothed = true
+script = ExtResource("1_gnmh3")

@@ -10,9 +10,7 @@ var selected_building = "NONE"
 var infestation_radius = 50
 var infestation_build_radius = 65
 
-# Difficulty settings
-var num_enemies_to_spawn = 1
-var max_enemies = 3
+# Session stats
 var kills = 0
 
 # Cyst network
