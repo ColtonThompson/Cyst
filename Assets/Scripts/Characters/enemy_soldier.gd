@@ -27,6 +27,7 @@ var target_node: Node2D
 var is_in_combat = false
 var can_fire = true
 var is_dead = false
+var is_buffed = false
 
 # Tracking behavior states
 var behaviour_state = "IDLE"
@@ -36,12 +37,13 @@ func _ready():
 	attack_delay_timer.set_wait_time(attack_speed)
 	add_to_group("enemies")
 	
-func set_difficulty(speed: int, health:int, damage:int, range:int):
+func set_difficulty(speed: int, health:int, damage:int, range:int, buffed:bool):
 	move_speed = speed
 	max_health = health
 	current_health = health
 	attack_damage = damage
 	attack_range = range
+	is_buffed = buffed
 	
 # Creates floating text with value at start_pos
 func create_floating_text(value, start_pos):
@@ -113,12 +115,16 @@ func handle_behaviour():
 		
 # Called every frame
 func _process(delta):
-	pass
+	sprite_buffed()
 
 # Called on a static delay for physics calculations/movement
 func _physics_process(delta):
 	handle_behaviour()
 	
+func sprite_buffed() -> void:
+	if is_buffed:
+		anim.modulate = Color("#ff7615", 1)
+
 func sprite_flash() -> void:
 	var tween: Tween = create_tween()
 	#tween.tween_property(anim, "modulate:v", 1, 0.25).from(15)
@@ -222,9 +228,13 @@ func die():
 	if behaviour_state == "DEAD":
 		queue_free()
 		return
-	ResourceManager.biomass += 12
 	GameManager.kills += 1
-	create_floating_text("+12", Vector2.ZERO)
+	if is_buffed:
+		ResourceManager.biomass += 21
+		create_floating_text("+21", Vector2.ZERO)
+	else:
+		ResourceManager.biomass += 12
+		create_floating_text("+12", Vector2.ZERO)
 	is_dead = true
 	behaviour_state = "DEAD"
 	anim.play("dead")

@@ -46,7 +46,7 @@ func _input(event):
 		is_building = true
 		
 	if Input.is_action_just_pressed("debug"):
-		spawn_enemy_soldier(mouse_pos, 15, 100, 1, 40)
+		spawn_enemy_soldier(mouse_pos, 15, 100, 1, 40, false)
 
 	if Input.is_action_just_pressed("restart_game"):
 		if GameManager.game_over:
@@ -153,7 +153,30 @@ func _get_random_spawn_position() -> Vector2:
 	var spawn_pos: = Vector2(screen_rect.x, 0).rotated(randf_range(0, 2*PI))
 	return spawn_pos
 	
+# Store values during events
+var stored_damage = 4
+var stored_range = 45
+var stored_health = 35
+var stored_move_speed = 10
+
+# Event variables
 var you_should_be_dead = false
+var event_spawn_count = 5
+
+# Starts the you should be dead event
+func start_challenge_event(spawn_count:int, dmg:int, rng:int, hp:int, move:int):
+	# Start a 'you should be dead' event!
+	store_difficulty(dmg, rng, hp, move)
+	you_should_be_dead = true
+	event_spawn_count = spawn_count
+	print("you should be dead event started")	
+
+func store_difficulty(dmg, rng, hp, move):
+	stored_damage = dmg
+	stored_range = rng
+	stored_health = hp
+	stored_move_speed = move
+
 # Controls the difficulty as time increases
 func _on_enemy_spawn_timer_timeout():
 	if GameManager.game_over:
@@ -167,74 +190,95 @@ func _on_enemy_spawn_timer_timeout():
 	var damage = 4
 	var range = 45
 	var health = 35
-	var move_speed = 10
+	var move_speed = 15
 	
 	# Spawn related setting
 	var num_to_spawn = 1
-
-	#print("Time elapsed " + str(minutes) + " mins and " + str(seconds) + " seconds, cycles = " + str(spawn_cycles))
+	
+	# Event ended, return values back to what they were to keep scaling!
+	if you_should_be_dead and event_spawn_count <= 0:
+		print("You should be dead event ended")
+		you_should_be_dead = false
+		health = stored_health
+		damage = stored_damage
+		move_speed = stored_move_speed
+		range = stored_range
+		
 	# Time has hit 1 minute and 0 seconds on the clock
 	if minutes == "00" and seconds == "45":
-		move_speed = 11
+		move_speed = 16
 		num_to_spawn += 2
 	# Time has hit 2 minute and 0 seconds on the clock
 	if minutes == "02" and seconds == "00":
-		move_speed = 12	
+		move_speed = 17
 		health = 40
 		damage = 5
 		num_to_spawn += 5
+		start_challenge_event(10, damage, range, health, move_speed)
 	# Time has hit 4 minute and 0 seconds on the clock
 	if minutes == "04" and seconds == "00":
-		move_speed = 14	
+		move_speed = 18	
 		health = 55
 		damage = 7
 	# Time has hit 7 minute and 0 seconds on the clock
 	if minutes == "07" and seconds == "00":
-		move_speed = 15	
+		move_speed = 19	
 		health = 70
 		damage = 9
 	# Time has hit 10 minute and 0 seconds on the clock
 	if minutes == "10" and seconds == "00":
-		move_speed = 16
+		move_speed = 20
 		health = 85
 		damage = 12
+		start_challenge_event(25, damage, range, health, move_speed)
 	# Time has hit 12 minute and 0 seconds on the clock
 	if minutes == "12" and seconds == "00":
-		move_speed = 17
+		move_speed = 25
 		health = 100
 		damage = 15
 	# Time has hit 15 minute and 0 seconds on the clock
 	if minutes == "15" and seconds == "00":
-		move_speed = 18
+		move_speed = 25
 		health = 150
 		damage = 18
+		start_challenge_event(35, damage, range, health, move_speed)
 	# Time has hit 20 minute and 0 seconds on the clock
 	if minutes == "20" and seconds == "00":
-		you_should_be_dead = true
-		move_speed = 20
+		move_speed = 27
 		health = 200
 		damage = 30
 		range = 59
+		start_challenge_event(50, damage, range, health, move_speed)
+		
+	# Challenge the player with an event!
 	if you_should_be_dead:
-		health = 300
-		damage += 5
+		health = health * 3
+		damage = damage * 1.75
+		move_speed = 30
 	
 	for i in range(num_to_spawn):
 		if num_enemies >= 400:
 			return
+		var buff = false
+		if you_should_be_dead and event_spawn_count > 0:
+			event_spawn_count -= 1
+			buff = true
 		var spawn_pos: Vector2 = _get_random_spawn_position()
 		var offset: Vector2 = Vector2(randi_range(-15,15), randi_range(-15, 15))
 		spawn_pos = spawn_pos + offset
-		spawn_enemy_soldier(spawn_pos, move_speed, health, damage, range)
-		print("Spawning basic enemy soldier at " + str(spawn_pos))
+		spawn_enemy_soldier(spawn_pos, move_speed, health, damage, range, buff)
+		if !buff:
+			print("Spawning basic enemy soldier at " + str(spawn_pos))
+		else:
+			print("Spawning buffed enemy soldier at " + str(spawn_pos))
 	spawn_cycles += 1
 
 # Spawns a basic enemy soldier
-func spawn_enemy_soldier(spawn_position: Vector2, move_spd, hp, dmg, attack_range):
+func spawn_enemy_soldier(spawn_position: Vector2, move_spd, hp, dmg, attack_range, is_buffed: bool):
 	var soldier = enemy_soldier.instantiate()
 	var offset = Vector2(randi_range(-10,10), randi_range(-10,10))
 	add_child(soldier)
-	soldier.set_difficulty(move_spd, hp, dmg, attack_range)
+	soldier.set_difficulty(move_spd, hp, dmg, attack_range, is_buffed)
 	soldier.position = spawn_position
 
 func _on_build_cyst_button_pressed():
