@@ -1,3 +1,4 @@
+res://Assets/Scenes/UI/PauseControl.gd
 res://Assets/Scenes/game_world.tscn
 res://Assets/Scenes/UI/floating_text.gd
 res://Assets/Scripts/UI/HiveProgressBar.gd
@@ -6,3 +7,9 @@ res://Assets/Sprites/Animations/Characters/soldier1.tres
 res://Assets/Sprites/Animations/spore_attack.tres
 res://Assets/Sprites/Tilesets/primary.tres
 res://Assets/Sprites/Animations/hive_anim.tres
+res://Assets/Scenes/Buildings/Cyst/cyst.tscn
+res://Assets/Scenes/Characters/enemy_soldier.tscn
+res://Assets/Scenes/Buildings/Cyst/spore_attack.tscn
+res://Assets/Scenes/player.tscn
+res://Assets/Scenes/menu.tscn
+res://Assets/Scenes/UI/error_message.tscn

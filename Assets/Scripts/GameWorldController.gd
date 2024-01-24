@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var bg_music = $BackgroundMusic
 @onready var hive = $Hive
-@onready var pause_control = $UI/PauseControl
+@onready var pause_control = $PauseUI/PauseControl
 # Error Message Animation
 var error_message_template = preload("res://Assets/Scenes/UI/error_message.tscn")
 
@@ -36,10 +36,10 @@ func _ready():
 func _input(event):
 	var mouse_pos = get_global_mouse_position()
 
-	#if Input.is_action_just_pressed("pause_game"):
-		#print("Game state paused = " + str(get_tree().paused))
-		#get_tree().paused = !get_tree().paused
-		#pause_control.set_visible(!pause_control.visible)
+	if Input.is_action_just_pressed("pause_game"):
+		print("Game state paused = " + str(get_tree().paused))
+		get_tree().paused = true
+		pause_control.show()
 
 	# Building mode toggle
 	if Input.is_action_just_pressed("toggle_building_mode"):
@@ -255,8 +255,6 @@ func _on_enemy_spawn_timer_timeout():
 		health = 300
 		damage = 35
 		you_are_beyond = true	
-	
-		
 	# Challenge the player with an event!
 	if you_should_be_dead:
 		health = health * 3
@@ -302,10 +300,6 @@ func _on_hive_hive_has_died():
 	game_over_control.visible = true
 	GameManager.game_over = true
 
-func _on_resume_button_pressed():
-	get_tree().paused = false
-	pause_control.set_visible(false)
-	
 func get_time_elapsed(time: float) -> Array:
 	var minutes := time / 60
 	var seconds := fmod(time, 60)

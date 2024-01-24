@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://o4wycbrbq4po"]
+[gd_scene load_steps=35 format=3 uid="uid://o4wycbrbq4po"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/GameWorldController.gd" id="1_yhc0f"]
 [ext_resource type="TileSet" uid="uid://ditimyoq1jc5m" path="res://Assets/Sprites/Tilesets/primary.tres" id="2_edm8f"]
@@ -16,7 +16,16 @@
 [ext_resource type="Texture2D" uid="uid://cs584mvhlgtmx" path="res://Assets/Sprites/UI/build_cyst_button_pressed.png" id="9_clqe5"]
 [ext_resource type="Texture2D" uid="uid://cl3dp6c8avlhl" path="res://Assets/Sprites/UI/build_cyst_button_hover.png" id="10_6rxuj"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/Hint.gd" id="10_oweq3"]
+[ext_resource type="Script" path="res://Assets/Scenes/UI/PauseControl.gd" id="17_tnoyo"]
 [ext_resource type="PackedScene" uid="uid://c23641v25pgfd" path="res://Assets/Scenes/Misc/background_music.tscn" id="18_65jgf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sboiu"]
+shadow_color = Color(0, 0, 0, 0.709804)
+
+[sub_resource type="LabelSettings" id="LabelSettings_isl0c"]
+font_size = 32
+shadow_color = Color(0, 0, 0, 0.619608)
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="SystemFont" id="SystemFont_c256d"]
 
@@ -73,17 +82,87 @@ shadow_offset = Vector2(2, 2)
 shadow_color = Color(0, 0, 0, 0.45098)
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="LabelSettings" id="LabelSettings_isl0c"]
-font_size = 32
-shadow_color = Color(0, 0, 0, 0.619608)
-shadow_offset = Vector2(2, 2)
-
-[sub_resource type="LabelSettings" id="LabelSettings_sboiu"]
-shadow_color = Color(0, 0, 0, 0.709804)
-
 [node name="GameWorld" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_yhc0f")
+
+[node name="PauseUI" type="CanvasLayer" parent="."]
+process_mode = 2
+
+[node name="PauseControl" type="Control" parent="PauseUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_tnoyo")
+
+[node name="ResumeButton" type="Button" parent="PauseUI/PauseControl"]
+top_level = true
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -73.5
+offset_right = 60.0
+offset_bottom = -42.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resume Game"
+
+[node name="DisableMusicBox" type="CheckBox" parent="PauseUI/PauseControl"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 24.0
+grow_vertical = 0
+
+[node name="DisableMusicLabel" type="Label" parent="PauseUI/PauseControl"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = -24.0
+offset_right = 135.0
+offset_bottom = -1.0
+grow_vertical = 0
+text = "Disable Music"
+label_settings = SubResource("LabelSettings_sboiu")
+
+[node name="PauseLabel" type="Label" parent="PauseUI/PauseControl"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -149.0
+offset_right = 112.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME PAUSED"
+label_settings = SubResource("LabelSettings_isl0c")
+
+[node name="BackgroundColor" type="ColorRect" parent="PauseUI/PauseControl"]
+z_index = -1
+layout_mode = 0
+offset_top = -3.0
+offset_right = 1152.0
+offset_bottom = 645.0
+color = Color(0, 0, 0, 0.243137)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_edm8f")
@@ -365,86 +444,13 @@ offset_bottom = 46.0
 text = "Enemies: "
 label_settings = SubResource("LabelSettings_jp118")
 
-[node name="PauseControl" type="Control" parent="UI"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ResumeButton" type="Button" parent="UI/PauseControl"]
-z_index = 10
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -73.5
-offset_right = 60.0
-offset_bottom = -42.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Resume Game"
-
-[node name="PauseLabel" type="Label" parent="UI/PauseControl"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -112.0
-offset_top = -149.0
-offset_right = 112.0
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "GAME PAUSED"
-label_settings = SubResource("LabelSettings_isl0c")
-
-[node name="DisableMusicBox" type="CheckBox" parent="UI/PauseControl"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -24.0
-offset_right = 24.0
-grow_vertical = 0
-
-[node name="DisableMusicLabel" type="Label" parent="UI/PauseControl"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 28.0
-offset_top = -24.0
-offset_right = 135.0
-offset_bottom = -1.0
-grow_vertical = 0
-text = "Disable Music"
-label_settings = SubResource("LabelSettings_sboiu")
-
-[node name="BackgroundColor" type="ColorRect" parent="UI/PauseControl"]
-z_index = -1
-layout_mode = 0
-offset_top = -3.0
-offset_right = 1152.0
-offset_bottom = 645.0
-color = Color(0, 0, 0, 0.243137)
-
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="BackgroundMusic" parent="." instance=ExtResource("18_65jgf")]
 
+[connection signal="pressed" from="PauseUI/PauseControl/ResumeButton" to="PauseUI/PauseControl" method="_on_resume_button_pressed"]
 [connection signal="health_changed" from="Hive" to="UI/HiveHealthControl/HiveProgressBar" method="_on_hive_health_changed"]
 [connection signal="hive_has_died" from="Hive" to="." method="_on_hive_hive_has_died"]
 [connection signal="pressed" from="UI/HUDControl/ButtonControl/BuildCystButton" to="." method="_on_build_cyst_button_pressed"]
-[connection signal="pressed" from="UI/PauseControl/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

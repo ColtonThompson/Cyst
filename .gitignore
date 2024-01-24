@@ -2,6 +2,7 @@
 publish/
 
 # Godot-specific ignores
+.godot/
 .import/
 export.cfg
 export_presets.cfg

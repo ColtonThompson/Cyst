@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 GameManager="*res://Assets/Scripts/Autoload/game_manager.gd"
 ResourceManager="*res://Assets/Scripts/Autoload/resource_manager.gd"
 
+[dotnet]
+
+project/assembly_name="Cyst"
+
 [input]
 
 ui_left={
